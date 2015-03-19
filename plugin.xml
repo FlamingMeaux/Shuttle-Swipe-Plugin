@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.egood.magtek-udynamo" version="0.0.5" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>IDTech Shuttle Card Reader</name>
+    <description>Allow using the IDTech Shuttle Card Reader with PhoneGap apps</description>
+    <author email="dev@tranware.com" href="http://www.tranware.com">Universal Tranware, LLC</author>
+    <license>Apache 2.0</license>
+    
+    <keywords>magtek,card reader,credit card,reader</keywords>
+
+    <engines>
+        <engine name="cordova" version=">3.0.0" />
+    </engines>
+
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="com.tranware.IDTech-Shuttle">
+                <param name="ios-package" value="IDTechShuttlePlugin" />
+            </feature>
+        </config-file>
+        
+        <js-module src="www/js/unimag.js" name="unimag">
+            <clobbers target="cordova.plugins.unimag" />
+        </js-module>
+
+        <header-file src="src/ios/CDVUniMag.h" />
+        <source-file src="src/ios/CDVUniMag.m" />
+        
+        <header-file src="src/ios/uniMag.h" />
+        <source-file src="src/ios/IDTECH_UniMag.a" framework="true" />
+        
+        <framework src="libstdc++.dylib" />
+        <framework src="avfoundation.framework" />
+        <framework src="mediaplayer.framework"  />
+        <framework src="audiotoolbox.framework" />
+        <framework src="foundation.framework" />
+        <framework src="externalaccessory.framework" />
+    </platform>
+
+   
+</plugin>
