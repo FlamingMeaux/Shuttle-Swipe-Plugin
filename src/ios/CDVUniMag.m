@@ -96,7 +96,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
     //list of notifications and their corresponding selector
-    const struct {NSString *n; SEL s;} noteAndSel[] = {
+    const struct { __unsafe_unretained NSString *n; SEL s;} noteAndSel[] = {
         //
         {uniMagAttachmentNotification       , @selector(umDevice_attachment:)},
         {uniMagDetachmentNotification       , @selector(umDevice_detachment:)},
