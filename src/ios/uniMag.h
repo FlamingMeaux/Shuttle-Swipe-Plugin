@@ -1,54 +1,35 @@
-/* Copyright 2010-2014 ID TECH. All rights reserved.
+/* Copyright 2010-2012 ID TECH. All rights reserved.
 */
 
 #import <Foundation/Foundation.h>
 
 //Versioning
-#define UMSDK_VERSION @"7.9"
+#define UMSDK_VERSION @"7.5"
 #define UMSDK_CUSTOMIZATION 0
 
 //Notification identifiers used with NSNotificationCenter
   //physical attachment related
-#define uniMagAttachmentNotification              @"uniMagAttachmentNotification"
-#define uniMagDetachmentNotification              @"uniMagDetachmentNotification"
+extern NSString * const uniMagAttachmentNotification;
+extern NSString * const uniMagDetachmentNotification;
   //connection related
-#define uniMagInsufficientPowerNotification       @"uniMagInsufficientPowerNotification"
-#define uniMagMonoAudioErrorNotification          @"uniMagMonoAudioErrorNotification"
-#define uniMagPoweringNotification                @"uniMagPoweringNotification"
-#define uniMagTimeoutNotification                 @"uniMagTimeoutNotification"
-#define uniMagDidConnectNotification              @"uniMagDidConnectNotification"
-#define uniMagDidDisconnectNotification           @"uniMagDidDisconnectNotification"
+extern NSString * const uniMagInsufficientPowerNotification;
+extern NSString * const uniMagMonoAudioErrorNotification;
+extern NSString * const uniMagPoweringNotification;
+extern NSString * const uniMagTimeoutNotification;
+extern NSString * const uniMagDidConnectNotification;
+extern NSString * const uniMagDidDisconnectNotification;
   //swipe related
-#define uniMagSwipeNotification                   @"uniMagSwipeNotification"
-#define uniMagTimeoutSwipeNotification            @"uniMagTimeoutSwipe"
-#define uniMagDataProcessingNotification          @"uniMagDataProcessingNotification"
-#define uniMagInvalidSwipeNotification            @"uniMagInvalidSwipeNotification"
-#define uniMagDidReceiveDataNotification          @"uniMagDidReceiveDataNotification"
+extern NSString * const uniMagSwipeNotification;
+extern NSString * const uniMagTimeoutSwipeNotification;
+extern NSString * const uniMagDataProcessingNotification;
+extern NSString * const uniMagInvalidSwipeNotification;
+extern NSString * const uniMagDidReceiveDataNotification;
   //command related
-#define uniMagCmdSendingNotification              @"uniMagCmdSendingNotification"
-#define uniMagCommandTimeoutNotification          @"uniMagCommandTimeout"
-#define uniMagDidReceiveCmdNotification           @"uniMagDidReceiveCmdNotification"
+extern NSString * const uniMagCmdSendingNotification;
+extern NSString * const uniMagCommandTimeoutNotification;
+extern NSString * const uniMagDidReceiveCmdNotification;
   //misc
-#define uniMagSystemMessageNotification           @"uniMagSystemMessageNotification"
-
-//Reader types
-typedef enum {
-    UMREADER_UNKNOWN,
-    UMREADER_UNIMAG_ORIGINAL,
-    UMREADER_UNIMAG_PRO,
-    UMREADER_UNIMAG_II,
-    UMREADER_SHUTTLE,
-} UmReader;
-static inline NSString* UmReader_lookup(UmReader c) {
-    switch (c) {
-    case UMREADER_UNKNOWN        : return @"Unknown";
-    case UMREADER_UNIMAG_ORIGINAL: return @"UniMag (original)";
-    case UMREADER_UNIMAG_PRO     : return @"UniMag Pro";
-    case UMREADER_UNIMAG_II      : return @"UniMag II";
-    case UMREADER_SHUTTLE        : return @"Shuttle";
-    default: return @"<unknown code>";
-    }
-}
+extern NSString * const uniMagSystemMessageNotification;
 
 //SDK async task types
 typedef enum {
@@ -60,21 +41,19 @@ typedef enum {
 } UmTask;
 
 //async task methods return value
-                            //Description                                 |Applicable task
-                            //                                            |Connect|Swipe|Cmd|Update
-typedef enum {              //--------------------------------------------+-------+-----+---+------
-    UMRET_SUCCESS,          //no error, beginning task                    | *     | *   | * | *
-    UMRET_NO_READER,        //no reader attached                          | *     | *   | * | *
-    UMRET_SDK_BUSY,         //SDK is doing another task                   | *     | *   | * | *
-    UMRET_MONO_AUDIO,       //mono audio is enabled                       | *     |     | * |
-    UMRET_ALREADY_CONNECTED,//did connection already                      | *     |     |   |
-    UMRET_LOW_VOLUME,       //audio volume is too low                     | *     |     |   |
-    UMRET_NOT_CONNECTED,    //did not do connection                       |       | *   |   |
-    UMRET_NOT_APPLICABLE,   //operation not applicable to the reader type |       |     | * |
-    UMRET_INVALID_ARG,      //invalid argument passed to API              |       |     | * |
-    UMRET_UF_INVALID_STR,   //UF wrong string format                      |       |     |   | *
-    UMRET_UF_NO_FILE,       //UF file not found                           |       |     |   | *
-    UMRET_UF_INVALID_FILE,  //UF wrong file format                        |       |     |   | *
+                            //Description               |Applicable task
+                            //                          |Connect|Swipe|Cmd|Update
+typedef enum {              //--------------------------+-------+-----+---+------
+    UMRET_SUCCESS,          //no error, beginning task  | *     | *   | * | *
+    UMRET_NO_READER,        //no reader attached        | *     | *   | * | *
+    UMRET_SDK_BUSY,         //SDK is doing another task | *     | *   | * | *
+    UMRET_MONO_AUDIO,       //mono audio is enabled     | *     |     | * |
+    UMRET_ALREADY_CONNECTED,//did connection already    | *     |     |   |
+    UMRET_LOW_VOLUME,       //audio volume is too low   | *     |     |   |
+    UMRET_NOT_CONNECTED,    //did not do connection     |       | *   |   |
+    UMRET_UF_INVALID_STR,   //UF wrong string format    |       |     |   | *
+    UMRET_UF_NO_FILE,       //UF file not found         |       |     |   | *
+    UMRET_UF_INVALID_FILE,  //UF wrong file format      |       |     |   | *
 } UmRet;
 
 static inline NSString* UmRet_lookup(UmRet c) {
@@ -87,8 +66,6 @@ static inline NSString* UmRet_lookup(UmRet c) {
     URLOOK(UMRET_ALREADY_CONNECTED)
     URLOOK(UMRET_LOW_VOLUME       )
     URLOOK(UMRET_NOT_CONNECTED    )
-    URLOOK(UMRET_NOT_APPLICABLE   )
-    URLOOK(UMRET_INVALID_ARG      )
     URLOOK(UMRET_UF_INVALID_STR   )
     URLOOK(UMRET_UF_NO_FILE       )
     URLOOK(UMRET_UF_INVALID_FILE  )
@@ -109,7 +86,7 @@ typedef enum {
 } UmUfCode;
 
 //updateFirmware: dict key for block number from applicable notifications
-#define UmUfBlockNumberKey @"block_num"
+extern NSString * const UmUfBlockNumberKey;
 
 //tag used by SDK internally when logging
 // look for NSLog entries with these tags
@@ -130,9 +107,9 @@ typedef enum {
 -(float) getVolumeLevel;
 
 //config
-@property (nonatomic) UmReader readerType;
 -(void) setAutoConnect:(BOOL)autoConnect;
 -(BOOL) setSwipeTimeoutDuration:(NSInteger) seconds;
+-(BOOL) setCmdTimeoutDuration:(NSInteger) seconds;
 -(void) setAutoAdjustVolume:(BOOL) b;
 -(void) setDeferredActivateAudioSession:(BOOL) b;
 
@@ -162,8 +139,6 @@ typedef enum {
 -(UmRet) sendCommandDisableForceEncryption;
 -(UmRet) sendCommandSetPrePAN: (NSInteger) prePAN;
 -(UmRet) sendCommandClearBuffer;
--(UmRet) sendCommandResetBaudRate;
--(UmRet) sendCommandCustom:(NSData *) cmd;
 
 // firmware updating
 -(UmRet) getAuthentication;
@@ -187,8 +162,6 @@ typedef enum {
 -(void) closeConnection;
 //  Equivalent to '-cancelTask'
 -(void) cancelSwipe;
-//  It is no longer possible to change command timeout
--(BOOL) setCmdTimeoutDuration:(NSInteger) seconds;
 
 @end
 
