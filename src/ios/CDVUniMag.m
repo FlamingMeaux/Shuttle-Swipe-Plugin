@@ -31,7 +31,7 @@
     LOGI(@"dealloc");
     
     [self deactivateSDK: nil];
-    [super dealloc];
+ /*   [super dealloc];*/
 }
 - (void)dispose
 {
@@ -79,7 +79,7 @@
         return;
     
     //deallocating the uniMag object deactivates the uniMag SDK
-    [uniReader release];
+    //[uniReader release];
     uniReader = nil;
     
     //it is the responsibility of SDK client to unregister itself as notification observer
@@ -96,7 +96,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
     //list of notifications and their corresponding selector
-    const struct {NSString *n; SEL s;} noteAndSel[] = {
+    const struct { __unsafe_unretained NSString *n; SEL s;} noteAndSel[] = {
         //
         {uniMagAttachmentNotification       , @selector(umDevice_attachment:)},
         {uniMagDetachmentNotification       , @selector(umDevice_detachment:)},
@@ -247,10 +247,10 @@ static inline NSString* UmRet_to_js(UmRet c) {
 
 
 static struct {
-    NSString *Attach     ;
-    NSString *Detach     ;
-    NSString *Connect    ;
-    NSString *Disconnect ;
+   __unsafe_unretained NSString *Attach     ;
+   __unsafe_unretained NSString *Detach     ;
+   __unsafe_unretained NSString *Connect    ;
+   __unsafe_unretained NSString *Disconnect ;
 } NotifEnum = {
     @"Attach"    ,
     @"Detach"    ,
@@ -259,9 +259,9 @@ static struct {
 };
 
 static struct {
-    NSString *Connect    ;
-    NSString *Swipe      ;
-    NSString *SendCommand;
+   __unsafe_unretained NSString *Connect    ;
+   __unsafe_unretained NSString *Swipe      ;
+   __unsafe_unretained NSString *SendCommand;
 } TaskEnum = {
     @"Connect"    ,
     @"Swipe"      ,
@@ -269,10 +269,10 @@ static struct {
 };
 
 static struct {
-    NSString *Started     ;
-    NSString *StartFailed ;
-    NSString *Update      ;
-    NSString *Stopped     ;
+   __unsafe_unretained NSString *Started     ;
+   __unsafe_unretained NSString *StartFailed ;
+   __unsafe_unretained NSString *Update      ;
+   __unsafe_unretained NSString *Stopped     ;
 } TaskNotifEnum = {
     @"Started"    ,
     @"StartFailed",
