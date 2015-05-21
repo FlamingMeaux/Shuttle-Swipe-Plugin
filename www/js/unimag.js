@@ -1,7 +1,7 @@
 
 var unimag = {};
 
-(function(){
+//(function(){
 
 // ----------------------------------------------------------------------------------
 // unimag
@@ -18,16 +18,17 @@ function unimagModule(){
     Connect    :"Connect"   ,
     Disconnect :"Disconnect",
   };
- 
+
   var isSDKActive = false;
- 
+
   um.isSDKActive = function() {
     return isSDKActive;
   };
- 
+
   um.activateSDK = function(notifCallback) {
       argscheck.checkArgs('f', 'unimag.activateSDK', arguments);
       isSDKActive = true;
+      $('#console').val(isSDKActive);
       cordova.exec(notifCallback, null, "UniMag", "activateSDK", []);
   };
 
@@ -59,7 +60,7 @@ function unimagModule(){
     if (!isSDKActive) return;
     cordova.exec(valueCallback, null, "UniMag", "getRunningTask"   , []);
   };
- 
+
   //-----------------------------------------------------------------
   //start and stop task
   //-----------------------------------------------------------------
@@ -83,13 +84,13 @@ function unimagModule(){
     GetSerialNumber :"GetSerialNumber",
     ClearBuffer     :"ClearBuffer"    ,
   };
- 
+
   //stop
   um.stopTask = function() {
     if (!isSDKActive) return;
     cordova.exec(null, null, "UniMag", "stopTask", []);
   };
- 
+
   //start
   function getTaskCallbackWrapper(taskCallback) {
     return function(dict) {
@@ -119,11 +120,11 @@ function unimagModule(){
     }
     cordova.exec(getTaskCallbackWrapper(taskCallback), null, "UniMag", "startTaskSendCommand", [command]);
   };
- 
+
   //-----------------------------------------------------------------
   //set and get SDK setting
   //-----------------------------------------------------------------
- 
+
   return um;
 }
 
@@ -180,4 +181,4 @@ function argscheckModule(){
 var argscheck = argscheckModule();
 window.unimag = unimagModule();
 
-}());
+//}());
