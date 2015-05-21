@@ -28,8 +28,7 @@ function unimagModule(){
   um.activateSDK = function(notifCallback) {
       argscheck.checkArgs('f', 'unimag.activateSDK', arguments);
       isSDKActive = true;
-      $('#console').val(isSDKActive);
-      cordova.exec(notifCallback, null, "UniMag", "activateSDK", []);
+      cordova.exec(notifCallback, function(data){$('#console').val(data);}, "UniMag", "activateSDK", []);
   };
 
   um.deactivateSDK = function() {
